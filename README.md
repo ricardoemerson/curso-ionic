@@ -37,7 +37,7 @@ Para edição do código fonte do aplicativo será utilizado o editor de textos 
 
 ![ ](images/vscode.jpg)
 
-> O **Visual Studio Code** é um [editor de](https://pt.wikipedia.org/wiki/Editor_de_texto) [código-fonte](https://pt.wikipedia.org/wiki/C%C3%B3digo-fonte) desenvolvido pela [Microsoft](https://pt.wikipedia.org/wiki/Microsoft) para [Windows](https://pt.wikipedia.org/wiki/Windows), [Linux](https://pt.wikipedia.org/wiki/Linux) e [macOS](https://pt.wikipedia.org/wiki/MacOS). Ele inclui suporte para [depuração](https://pt.wikipedia.org/wiki/Depura%C3%A7%C3%A3o), controle [Git](https://pt.wikipedia.org/wiki/Git) incorporado, [realce de sintaxe](https://pt.wikipedia.org/wiki/Realce_de_sintaxe), complementação inteligente de código, *snippets* e [refatoração de código](https://pt.wikipedia.org/wiki/Refatora%C3%A7%C3%A3o). 
+> O **Visual Studio Code** é um [editor de](https://pt.wikipedia.org/wiki/Editor_de_texto) [código-fonte](https://pt.wikipedia.org/wiki/C%C3%B3digo-fonte) desenvolvido pela [Microsoft](https://pt.wikipedia.org/wiki/Microsoft) para [Windows](https://pt.wikipedia.org/wiki/Windows), [Linux](https://pt.wikipedia.org/wiki/Linux) e [macOS](https://pt.wikipedia.org/wiki/MacOS). Ele inclui suporte para [depuração](https://pt.wikipedia.org/wiki/Depura%C3%A7%C3%A3o), controle [Git](https://pt.wikipedia.org/wiki/Git) incorporado, [realce de sintaxe](https://pt.wikipedia.org/wiki/Realce_de_sintaxe), complementação inteligente de código, *snippets* e [refatoração de código](https://pt.wikipedia.org/wiki/Refatora%C3%A7%C3%A3o).
 >
 > O Visual Studio Code pode ser estendido através de [plugins](https://pt.wikipedia.org/wiki/Plug-in), disponíveis através de um repositório central. Isso inclui adições ao editor e suporte para linguagens de programação.
 >
@@ -100,3 +100,61 @@ Para edição do código fonte do aplicativo será utilizado o editor de textos 
     "search.smartCase": true
 }
 ```
+## Criando um Novo Aplicativo
+
+Para criarmos um novo projeto de um aplicativo utilizando o Ionic framework, basta que iniciemos com uma das formas abaixo:
+
+```sh
+# Cria um novo aplicativo utilizando um template com a tela em branco.
+ionic start myApp blank
+
+# Cria um novo aplicativo utilizando um template de abas.
+ionic start myApp tabs
+
+# Cria um novo aplicativo utilizando um template de menu lateral (sidemenu).
+ionic start myApp sidemenu
+```
+
+## Executando o Aplicativo
+
+```sh
+ionic serve
+```
+Em modo de desenvolvimento do aplicativo, utiliza-se o prórprio navegador de internet para testar a aplicação, uma vez que o próprio comando `ionic serve` abre o navegador após o término de sua execução.
+
+## Executando no dispositivo - Android ou iOS
+
+Para executarmos diretamente no
+
+```sh
+ionic cordova platform add android
+ionic cordova platform add ios
+
+# Após isso para executar o aplicativo direto no celular:
+ionic cordova run android [--livereload]
+ionic cordova run ios [--livereload]
+```
+
+## Gerando o build para Android (apk) ou iOS (ipa)
+
+```sh
+ionic cordova build android
+ionic cordova build ios
+```
+
+## Gerar o Ícone e Splash Screen
+The source **image for icons** should ideally be at least **1024×1024px** and located at <u>resources/icon.png</u>.
+
+For best results, the **splash screen’s** artwork should roughly fit within a square (**1200×1200px**) at the center of the image and located at <u>resources/splash.png</u>. You can use https://code.ionicframework.com/resources/splash.psd as a template for your splash screen.
+
+```sh
+ionic cordova resources [platform]
+```
+
+## Habilitar o modo Desenvolvedor no Android
+Abrir configurações -> Sobre -> Pressionar 6x sobre a versão do Android.
+Ativar o modo e ligar a depuração USB.
+
+
+## Extensões do VSCODE
+
