@@ -1,3 +1,5 @@
+
+
 # Criando Aplicações Móveis com Ionic
 
 ## Instalar Node.js
@@ -30,6 +32,8 @@ Para criarmos aplicativos móveis utilizando o Ionic, devemos realizar a instala
 ```sh
 npm install -g ionic cordova
 ```
+
+---
 
 ## Instalando o Visual Studio Code
 
@@ -100,6 +104,192 @@ Para edição do código fonte do aplicativo será utilizado o editor de textos 
     "search.smartCase": true
 }
 ```
+
+---
+
+## REST: Princípios e boas práticas
+
+Representational State Transfer (Transferência de Estado Representacional), abreviado como REST, não é uma tecnologia, uma biblioteca, e nem tampouco uma arquitetura, mas sim um modelo a ser utilizado para se projetar arquiteturas de software distribuído, baseadas em comunicação via rede.
+
+REST é um dos modelos de arquitetura que foi descrito por Roy Fielding, um dos principais criadores do protocolo HTTP, em sua tese de doutorado e que foi adotado como o modelo a ser utilizado na evolução da arquitetura do protocolo HTTP.
+
+Muitos desenvolvedores perceberam que também poderiam utilizar o modelo REST para a implementação de Web Services, com o objetivo de se integrar aplicações pela Web, e passaram a utilizá-lo como uma alternativa ao SOAP.
+
+### Identificação dos Recursos
+
+Toda aplicação gerencia algumas informações. Uma aplicação de um E-commerce, por exemplo, gerencia seus produtos, clientes, vendas, etc. Essas **coisas** que uma aplicação gerencia são chamadas de **Recursos** no modelo REST.
+
+Um recurso nada mais é do que uma abstração sobre um determinado tipo de informação que uma aplicação gerencia, sendo que um dos princípios do REST diz que todo recurso deve possuir uma identificação única. Essa identificação serve para que a aplicação consiga diferenciar qual dos recursos deve ser manipulado em uma determinada solicitação.
+
+A identificação do recurso deve ser feita utilizando-se o conceito de URI (Uniform Resource Identifier), que é um dos padrões utilizados pela Web. Alguns exemplos de URI’s:
+
+- http://servicorest.com.br/produtos
+- http://servicorest.com.br/clientes
+- http://servicorest.com.br/clientes/57
+- http://servicorest.com.br/vendas
+
+As URI’s são a interface de utilização dos seus serviços e funcionam como um **contrato** que será utilizado pelos clientes para acessá-los. 
+
+### Vejamos agora os principais métodos do protocolo HTTP e o cenário de utilização de cada um deles:
+
+| Verbo  | Descrição                                      |
+| ------ | ---------------------------------------------- |
+| GET    | Obter os dados de um recurso.                  |
+| POST   | Criar um novo recurso.                         |
+| PUT    | Substituir os dados de um determinado recurso. |
+| PATCH  | Atualizar parcialmente um determinado recurso. |
+| DELETE | Excluir um determinado recurso.                |
+
+Veja a seguir o padrão de utilização dos métodos HTTP em um serviço REST, que é utilizado pela maioria das aplicações e pode ser considerado uma boa prática. Como exemplo será utilizado um recurso chamado Cliente.
+
+| **Método** | **URI**      | **Utilização**                                |
+| ---------- | ------------ | --------------------------------------------- |
+| GET        | /clientes    | Recuperar os dados de todos os clientes.      |
+| GET        | /clientes/id | Recuperar os dados de um determinado cliente. |
+| POST       | /clientes    | Criar um novo cliente.                        |
+| PUT        | /clientes/id | Atualizar os dados de um determinado cliente. |
+| DELETE     | /clientes/id | Excluir um determinado cliente.               |
+
+### Representações dos recursos
+
+Os recursos ficam armazenados pela aplicação que os gerencia. Quando são solicitados pelas aplicações clientes, por exemplo em uma requisição do tipo GET, eles não “abandonam” o servidor, como se tivessem sido transferidos para os clientes. Na verdade, o que é transferido para a aplicação cliente é apenas uma **representação** do recurso.
+
+Um recurso pode ser representado de diversas maneiras, utilizando-se formatos específicos, tais como JSON, XML, HTML, CSV, dentre outros, sendo o JSON (JavaScript Object Notation - Notação de Objetos JavaScript) o formato mais utilizado. 
+
+Em JSON, os dados são apresentados desta forma:
+
+Um **objeto** é um conjunto desordenado de pares nome/valor. Um objeto começa com `{` (chave de abertura) e termina com `}` (chave de fechamento). Cada nome é seguido por `:` (dois pontos) e os pares nome/valor são seguidos por `,` (vírgula).
+
+![object](images/object.gif)
+
+Uma **array** é uma coleção de valores ordenados. O array começa com `[` (conchete de abertura) e termina com `]` (conchete de fechamento). Os valores são separados por `,` (vírgula).
+
+![array](images/array.gif)
+
+Um valor (value, na imagem acima) pode ser uma cadeia de caracteres (string), ou um número, ou `true` ou `false`, ou `null`, ou um objeto ou uma array. Estas estruturas podem estar aninhadas.
+
+![value](images/value.gif)
+
+Exemplo de representação de um recurso no formato JSON.
+
+```json
+{
+  "id": 1,
+  "name": "Leanne Graham",
+  "username": "Bret",
+  "email": "Sincere@april.biz",
+  "address": {
+    "street": "Kulas Light",
+    "suite": "Apt. 556",
+    "city": "Gwenborough",
+    "zipcode": "92998-3874",
+    "geo": {
+      "lat": "-37.3159",
+      "lng": "81.1496"
+    }
+  },
+  "phones": [
+    "1-770-736-8031 x56442",
+    "1-770-736-8031 x56443",
+    "1-770-736-8031 x56444"
+  ],
+  "website": "hildegard.org",
+  "company": {
+    "name": "Romaguera-Crona",
+    "catchPhrase": "Multi-layered client-server neural-net",
+    "bs": "harness real-time e-markets"
+  }
+}
+```
+### JSON vs XML
+
+Formato JSON:
+
+``` json
+{
+	"employees": [
+  	{ "firstName":"John", "lastName":"Doe" },
+  	{ "firstName":"Anna", "lastName":"Smith" },
+  	{ "firstName":"Peter", "lastName":"Jones" }
+	]
+}
+```
+
+Formato XML:
+```xml
+<employees>
+  <employee>
+    <firstName>John</firstName> <lastName>Doe</lastName>
+  </employee>
+  <employee>
+    <firstName>Anna</firstName> <lastName>Smith</lastName>
+  </employee>
+  <employee>
+    <firstName>Peter</firstName> <lastName>Jones</lastName>
+  </employee>
+</employees>
+```
+
+### REST x RESTFull
+
+Existe uma certa confusão quanto aos termos **REST e RESTful.**Entretanto, ambos representam os mesmo princípios. A diferença é apenas gramatical. Em outras palavras, sistemas que utilizam os princípios REST são chamados de RESTful.
+
+**REST:** conjunto de princípios de arquitetura
+**RESTful:** capacidade de determinado sistema aplicar os princípios de REST.
+
+### O que é API?
+
+O acrônimo **API** que provém do inglês **Application Programming Interface** (Em português, significa Interface de Programação de Aplicações), trata-se de um conjunto de rotinas e padrões estabelecidos e documentados por uma aplicação A, para que outras aplicações consigam utilizar as funcionalidades desta aplicação A, sem precisar conhecer detalhes da implementação do software.
+
+Desta forma, entendemos que as APIs permitem uma **interoperabilidade entre aplicações**. Em outras palavras, a comunicação entre aplicações e entre os usuários.
+
+![ ](images/api.png)
+
+> Fontes: 
+> [Caelum](http://blog.caelum.com.br/rest-principios-e-boas-praticas)
+> [Introdução ao JSON](https://www.json.org/json-pt.html)
+> [Becode](https://becode.com.br/o-que-e-api-rest-e-restful)
+> [w3schools.com](https://www.w3schools.com/js/js_json_xml.asp)
+
+---
+
+## Testando uma API
+
+### Insomnia REST Client
+
+> Debug APIs like a <u>human</u>, not a robot.
+> Finally, a REST client you'll love.
+
+### Crie requisições HTTP
+
+Especifique a URL, payload, cabeçalhos e autorização em um só lugar. Então é só apertar enviar.
+
+### Visualize os detalhes da resposta
+
+Veja todos os detalhes em todas as respostas. Ver código de status, corpo, cabeçalhos, cookies e muito mais!
+
+### Organize tudo
+
+Crie áreas de trabalho ou pastas, arraste e solte solicitações e importe e exporte facilmente seus dados.
+
+### Plataformas
+
+**Livre** e **código aberto** disponível para  Mac, Windows, and Linux.
+
+---
+
+## APIS Online para Testes
+
+### JSONPlaceholder
+
+[Site do JSONPlaceholder](https://jsonplaceholder.typicode.com)
+
+### REQ | RES
+
+[Site dp REQ | RES](https://reqres.in/)
+
+---
+
 ## Criando um Novo Aplicativo
 
 Para criarmos um novo projeto de um aplicativo utilizando o Ionic framework, basta que iniciemos com uma das formas abaixo:
@@ -154,7 +344,4 @@ ionic cordova resources [platform]
 ## Habilitar o modo Desenvolvedor no Android
 Abrir configurações -> Sobre -> Pressionar 6x sobre a versão do Android.
 Ativar o modo e ligar a depuração USB.
-
-
-## Extensões do VSCODE
 
