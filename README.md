@@ -245,10 +245,10 @@ Desta forma, entendemos que as APIs permitem uma **interoperabilidade entre apli
 
 ![ ](images/api.png)
 
-> Fontes: 
-> [Caelum](http://blog.caelum.com.br/rest-principios-e-boas-praticas)
-> [Introdução ao JSON](https://www.json.org/json-pt.html)
-> [Becode](https://becode.com.br/o-que-e-api-rest-e-restful)
+> Fontes:  
+> [Caelum](http://blog.caelum.com.br/rest-principios-e-boas-praticas)  
+> [Introdução ao JSON](https://www.json.org/json-pt.html)  
+> [Becode](https://becode.com.br/o-que-e-api-rest-e-restful)  
 > [w3schools.com](https://www.w3schools.com/js/js_json_xml.asp)
 
 ---
