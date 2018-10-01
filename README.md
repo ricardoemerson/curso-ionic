@@ -1,5 +1,3 @@
-
-
 # Criando Aplicações Móveis com Ionic
 
 ## Instalar Node.js
@@ -349,11 +347,309 @@ ionic serve
 ```
 Em modo de desenvolvimento do aplicativo, utiliza-se o prórprio navegador de internet para testar a aplicação, uma vez que o próprio comando `ionic serve` abre o navegador após o término de sua execução.
 
-## Executando no dispositivo - Android ou iOS
+## Criando Meu Primeiro Aplicativo
 
-Para executarmos diretamente no
+Vamos criar uma aplicação de exemplo para estudarmos alguns conceitos iniciais sobre o Ionic.
+
+### Criando o Aplicativo
 
 ```sh
+ionic start my-app tabs
+
+# ❯❯❯ ionic start my-app tabs
+# ✔ Preparing directory ./my-notes-app - done!
+# ✔ Downloading and extracting sidemenu starter - done!
+# ? Integrate your new app with Cordova to target native iOS and Android? (y/N) y
+#  ...
+# ? Install the free Ionic Pro SDK and connect your app? (Y/n) n
+```
+
+### Principais Tópicos de Estudo
+
+- Estrutura do Projeto
+- Conhecendo Typescript
+- Conhecendo algumas diretivas do Angular
+- Principais comandos do generate
+
+### Estrutura do Projeto
+
+Exemplo da estrutura de um projeto inicial criado com Ionic. 
+
+ ![ ](images/estrutura-ionic.png)
+
+A pasta **resources** guarda as imagens do ícone e da tela inicial do aplicativo para que uma vez definida, seja *automaticamente* convertida para o Android e iOS.
+
+A pasta **src** guarda o código fonte de toda a aplicação. É nesta pasta que ficam armazenadas as páginas do aplicativo, os arquivos de modelo, componentes e providers.
+
+A pasta **app** é responsável pelo carregamento dos módulos de bibliotecas principais da aplicação, define qual será a página que será exibida na inicialização do aplicativo e possui o arquivo de folhas de estilo global da aplicação.
+
+A pasta **assets** pode guardar ícones e outras imagens que são utilizadas pelo aplicativo.
+
+A pasta **pages** é o local onde todas as demais páginas do aplicativo ficam armazenadas.
+
+A pasta **theme** é utilizada para a definição do tema de cores que são utilizadas no aplicativo.
+
+O arquvio **config.xml** possui informações sobre o aplicativo como o id, versão, nome do aplicativo, dentre outras.
+
+O arquvio **.gitignore** possui a definição de quais arquivos e pastas que não devem ser adicionadas ao repositório git.
+
+o arquvio **package.json** principalmente utilizado para gerenciamento das bibliotecas que estão sendo utilizadas em nosso projeto.
+
+### Conhecendo o Typescript
+
+TypeScript é uma linguagem criada pela Microsoft e nada mais é que um *superset* do ECMAScript 6 que, por sua vez, é um *superset* do ECMAScript 5, que usamos mais frequentemente como base para nosso clássico JavaScript. Isso significa que praticamente qualquer código JavaScript é também um código TypeScript.
+
+#### ECMAScript 6
+
+**ECMAScript** é uma especificação de linguagens de script com marca registrada padronizada pela Ecma International nos padrões ECMA-262 e ISO/IEC 16262. Algumas das implementações que conhecemos desta padronização estão no JavaScript, JScript e também no ActionScript, os quais são bastante utilizados em aplicações web no *client-side*. 
+
+Com a evolução da Web e o alto uso de scripts, novas metas foram definidas pelo ECMAScript 2015 (também chamado ES6). Algumas de suas principais melhorias incluem módulos, declarações de classe, *promises* para programação assíncrona, dentre outras.
+
+![ ](images/es6.png)
+
+Diagrama que compara o TypeScript com as versões do ECMAScript.
+
+
+#### Tipos de variáveis
+
+Uma das funcionalidades do TypeScript é criar variáveis com tipos definidos, assim como é feito no Java.
+
+##### Tipos primitivos
+
+Existem 3 tipos primitivos que podemos associar a uma variável. As variáveis são criadas através da palavra reservada `let` ou `const`, e o tipo é informado da seguinte forma:
+
+```javascript
+let NOME_DA_VARIAVEL: TIPO = VALOR;
+```
+
+- boolean: Pode assumir os valores `true` ou `false`
+- number: Assume qualquer número, como inteiro ou ponto flutuante.
+- string: Tipo texto, pode ser atribuído com aspas simples ou duplas.
+
+##### Arrays
+
+Arrays no TS podem ser criados através de duas formas. A primeira delas, usa-se `[]` na definição do tipo da variável, veja:
+
+```typescript
+let list: number[] = [1, 2, 3];
+```
+
+A segunda é mais conhecida como “generics” e usa `<>` para definir o tipo, veja:
+
+```typescript
+let list: Array<number> = [1,2,3];
+```
+
+Pode-se usar tipos complexos na criação de arrays, como no exemplo a seguir.
+
+```typescript
+class Pessoa{
+  nome: string;
+    
+  constructor(nome: string) {
+  	this.nome = nome;
+  }
+    
+  sayHello(): string {
+    return "Hello, " + this.nome;
+  }
+}
+
+let fulano = new Pessoa("fulano");
+let beltrano = new Pessoa("beltrano");
+
+let pessoas: Pessoa[] = new Array();
+pessoas.push(fulano);
+pessoas.push(beltrano);
+
+pessoas.forEach((p: Pessoa) =>
+  console.log(p.sayHello());
+);
+```
+
+##### Any
+
+Uma variável do tipo `any` pode assumir qualquer valor.
+
+```typescript
+let notSure: any = 4;
+notSure = "maybe a string instead";
+notSure = false; // okay, definitely a boolean;
+```
+
+##### Classes
+
+O conceito de classes no TypeScript é o mesmo de uma classe em qualquer linguagem orientada a objetos. As classes no TypeScript seguem o padrão ECMAScript 6 que em teoria será o “futuro” do JavaScript. A classe possui uma sintaxe muito familiar com c#, veja:
+
+```typescript
+class Greeter {
+  greeting: string;
+
+constructor(message: string) {
+  this.greeting = message;
+}
+
+greet() {
+        return "Hello, " + this.greeting;
+    }
+}
+
+let greeter = new Greeter("world");
+```
+O construtor é definido pela palavra constructor. Métodos não necessitam da palavra function, bastando apenas usar(). Perceba que, no exemplo apresentado, não definimos visibilidade das propriedades da classe, nem o tipo de retorno do método greet. É claro que podemos definir estes parâmetros, conforme o próximo exemplo.
+
+```typescript
+class Greeter {
+  private greeting: string;
+  
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  
+  public greet() : string {
+    return "Hello, " + this.greeting;
+  }
+}
+
+let greeter = new Greeter("world");
+```
+
+##### Visibilidade de métodos e propriedades
+Métodos e propriedades de uma classe podem assumir a visibilidade: private, public e protected.
+
+##### Herança
+A herança entre uma classe e outra é definida pela palavra extends. Pode-se sobrecarregar métodos e usar a palavra super para chamar o método da classe pai, conforme o exemplo a seguir.
+
+```typescript
+class Animal {
+  name: string;
+  
+  constructor(theName: string) { this.name = theName; }
+  
+  move(meters: number = 0) {
+    alert(this.name + " moved " + meters + "m.");
+  }
+}
+
+class Snake extends Animal {
+  constructor(name: string) { super(name); }
+  
+  move(meters = 5) {
+    alert("Slithering...");
+    super.move(meters);
+  }
+}
+
+class Horse extends Animal {
+  constructor(name: string) { super(name); }
+  
+  move(meters = 45) {
+    alert("Galloping...");
+    super.move(meters);
+  }
+}
+
+let sam = new Snake("Sammy the Python");
+let tom: Animal = new Horse("Tommy the Palomino");
+
+sam.move();
+tom.move(34);
+```
+
+Neste exemplo usamos o super da classe Snake para chamar o método construtor da classe pai Animal. Se isso não for claro para você, dê uma estudada em OO para que possa compreender melhor, pois estas características são da Orientação em Objetos como um todo, e não do TypeScript.
+
+##### Accessors (ou métodos get/set)
+
+Os Accessors visam proteger as propriedades de uma classe, pois você já deve saber que expor propriedades de uma classe não é algo legal.
+
+Os accessors do TypeScript são feitos pelas palavras **get** e **set**, e claro, deixe a sua propriedade como private. Veja o exemplo a seguir.
+
+```typescript
+class Pessoa {
+   private _password: string;
+
+  get password(): string {
+    return this._password;
+  }
+    
+  set password(p : string) {
+    if (p != "123456") {
+      this._password = p;
+    } else {
+      alert("Ei, senha não pode ser 123456");
+    }
+  }
+}
+
+var p = new Pessoa();
+p.password = "123456"; //vai exibir o erro
+```
+
+##### Interfaces
+Uma interface define um contrato para a classe. A interface é criada da seguinte forma:
+
+```typescript
+interface Ponto {
+ x: number;
+ y: number;
+ x: number;
+}
+```
+
+Para implementar a interface, usamos implements
+
+```typescript
+class Ponto3d implements Ponto{
+   (aqui implementamos x,y,z)
+}
+```
+
+##### Funções
+
+Vamos exemplificar algumas particularidades de uma função em TypeScript. A função pode ser criada fora de uma classe ou dentro, sendo as observações que faremos a seguir podem ser aplicadas em ambas.
+
+Tome nota apenas que, em uma classe, não precisamos usar a palavra function para definir uma função, mas fora da classe precisamos.
+
+###### Parâmetros com valores padrão
+
+Pode-se definir um valor padrão para um parâmetro de uma função da seguinte forma:
+
+```typescript
+function buildName(firstName: string, lastName : string = "Smith") {
+}
+// ou
+class Foo{
+  buildName(firstName: string, lastName : string = "Smith") {
+  }
+}
+```
+
+###### Parâmetros opcionais
+
+Use o caractere ? para definir um parâmetro opcional.
+
+```typescript
+class Foo{
+  buildName(firstName: string, lastName? : string) {
+  	if (lastName){
+    	// blablabla
+    }
+  }
+}
+```
+
+> Fontes:  
+> [Introdução ao TypeScript](https://www.devmedia.com.br/introducao-ao-typescript/36729)  
+> [O mínimo que você precisa saber sobre TypeScript](https://medium.com/@matheusmariano/o-m%C3%ADnimo-que-voc%C3%AA-precisa-saber-sobre-typescript-58d1b418f78b)  
+
+
+
+## Executando no dispositivo - Android ou iOS
+
+Para executarmos o aplicativo que está sendo criado diretamente no dispositivo, devemos primeiramente adicionar a plataforma para o dispositivo que será utilizado e em seguida solicitar a execução do aplicativo na plataforma desejada.
+
+```sh
+# Adicionando a plataforma android e/ou ios:
 ionic cordova platform add android
 ionic cordova platform add ios
 
@@ -365,8 +661,8 @@ ionic cordova run ios [--livereload]
 ## Gerando o build para Android (apk) ou iOS (ipa)
 
 ```sh
-ionic cordova build android
-ionic cordova build ios
+ionic cordova build android --prod --release
+ionic cordova build ios --prod --release
 ```
 
 ## Gerar o Ícone e Splash Screen
@@ -380,5 +676,5 @@ ionic cordova resources [platform]
 
 ## Habilitar o modo Desenvolvedor no Android
 Abrir configurações -> Sobre -> Pressionar 6x sobre a versão do Android.
-Ativar o modo e ligar a depuração USB.
+Ativar o modo e ligar a depuração USB. Também será necessário habilitar fontes desconhecidas na opção de segurança em configurações.
 
