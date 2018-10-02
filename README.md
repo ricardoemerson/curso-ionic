@@ -379,21 +379,21 @@ Exemplo da estrutura de um projeto inicial criado com Ionic.
 
 A pasta **resources** guarda as imagens do ícone e da tela inicial do aplicativo para que uma vez definida, seja *automaticamente* convertida para o Android e iOS.
 
-A pasta **src** guarda o código fonte de toda a aplicação. É nesta pasta que ficam armazenadas as páginas do aplicativo, os arquivos de modelo, componentes e providers.
+A pasta **src** guarda o código fonte de toda a aplicação. É nesta pasta que ficam armazenadas as páginas do aplicativo, os arquivos de modelo, componentes,  providers, etc.
 
 A pasta **app** é responsável pelo carregamento dos módulos de bibliotecas principais da aplicação, define qual será a página que será exibida na inicialização do aplicativo e possui o arquivo de folhas de estilo global da aplicação.
 
-A pasta **assets** pode guardar ícones e outras imagens que são utilizadas pelo aplicativo.
+A pasta **assets** pode guardar ícones e outras imagens que serão utilizadas no aplicativo.
 
-A pasta **pages** é o local onde todas as demais páginas do aplicativo ficam armazenadas.
+A pasta **pages** é o local onde todas as páginas do aplicativo ficam armazenadas.
 
-A pasta **theme** é utilizada para a definição do tema de cores que são utilizadas no aplicativo.
+A pasta **theme** é utilizada para a definição do tema de cores que serão utilizadas no aplicativo.
 
 O arquvio **config.xml** possui informações sobre o aplicativo como o id, versão, nome do aplicativo, dentre outras.
 
 O arquvio **.gitignore** possui a definição de quais arquivos e pastas que não devem ser adicionadas ao repositório git.
 
-o arquvio **package.json** principalmente utilizado para gerenciamento das bibliotecas que estão sendo utilizadas em nosso projeto.
+o arquvio **package.json** possui a definição das bibliotecas que estão sendo utilizadas em nosso projeto, bem como guarda informações das versões das mesmas.
 
 ### Conhecendo o Typescript
 
@@ -416,9 +416,9 @@ Uma das funcionalidades do TypeScript é criar variáveis com tipos definidos, a
 
 ##### Tipos primitivos
 
-Existem 3 tipos primitivos que podemos associar a uma variável. As variáveis são criadas através da palavra reservada `let` ou `const`, e o tipo é informado da seguinte forma:
+Existem 3 tipos primitivos que podemos associar a uma variável. As variáveis são criadas através da palavra reservada `let` ou `const` e o tipo é informado da seguinte forma:
 
-```javascript
+```typescript
 let NOME_DA_VARIAVEL: TIPO = VALOR;
 ```
 
@@ -443,7 +443,7 @@ let list: Array<number> = [1,2,3];
 Pode-se usar tipos complexos na criação de arrays, como no exemplo a seguir.
 
 ```typescript
-class Pessoa{
+class Pessoa {
   nome: string;
     
   constructor(nome: string) {
@@ -485,18 +485,18 @@ O conceito de classes no TypeScript é o mesmo de uma classe em qualquer linguag
 class Greeter {
   greeting: string;
 
-constructor(message: string) {
-  this.greeting = message;
-}
+  constructor(message: string) {
+    this.greeting = message;
+  }
 
-greet() {
-        return "Hello, " + this.greeting;
-    }
+  greet() {
+    return "Hello, " + this.greeting;
+  }
 }
 
 let greeter = new Greeter("world");
 ```
-O construtor é definido pela palavra constructor. Métodos não necessitam da palavra function, bastando apenas usar(). Perceba que, no exemplo apresentado, não definimos visibilidade das propriedades da classe, nem o tipo de retorno do método greet. É claro que podemos definir estes parâmetros, conforme o próximo exemplo.
+O construtor é definido pela palavra constructor. Métodos não necessitam da palavra function, bastando apenas usar (). Perceba que, no exemplo apresentado, não definimos visibilidade das propriedades da classe, nem o tipo de retorno do método greet. É claro que podemos definir estes parâmetros, conforme o próximo exemplo.
 
 ```typescript
 class Greeter {
@@ -515,7 +515,7 @@ let greeter = new Greeter("world");
 ```
 
 ##### Visibilidade de métodos e propriedades
-Métodos e propriedades de uma classe podem assumir a visibilidade: private, public e protected.
+Métodos e propriedades de uma classe podem assumir a visibilidade: private, public e protected. Quando não informada a visibilidade de um método ou propriedade, o mesmo é assumido como public.
 
 ##### Herança
 A herança entre uma classe e outra é definida pela palavra extends. Pode-se sobrecarregar métodos e usar a palavra super para chamar o método da classe pai, conforme o exemplo a seguir.
@@ -599,7 +599,7 @@ interface Ponto {
 Para implementar a interface, usamos implements
 
 ```typescript
-class Ponto3d implements Ponto{
+class Ponto3d implements Ponto {
    (aqui implementamos x,y,z)
 }
 ```
@@ -618,7 +618,7 @@ Pode-se definir um valor padrão para um parâmetro de uma função da seguinte 
 function buildName(firstName: string, lastName : string = "Smith") {
 }
 // ou
-class Foo{
+class Foo {
   buildName(firstName: string, lastName : string = "Smith") {
   }
 }
@@ -629,9 +629,9 @@ class Foo{
 Use o caractere ? para definir um parâmetro opcional.
 
 ```typescript
-class Foo{
+class Foo {
   buildName(firstName: string, lastName? : string) {
-  	if (lastName){
+  	if (lastName) {
     	// blablabla
     }
   }
@@ -642,7 +642,26 @@ class Foo{
 > [Introdução ao TypeScript](https://www.devmedia.com.br/introducao-ao-typescript/36729)  
 > [O mínimo que você precisa saber sobre TypeScript](https://medium.com/@matheusmariano/o-m%C3%ADnimo-que-voc%C3%AA-precisa-saber-sobre-typescript-58d1b418f78b)  
 
+### Conhecendo algumas diretivas do Angular
 
+- *ngIf
+- *ngIf - else
+- *ngFor
+- [disabled]
+- [class]
+- [style]
+
+### Principais comandos do generate
+
+O ionic cli possui comandos para geração de conteúdos de forma que podemos obter mais produtividade na criação de pages, providers, components, pipes e tabs.
+
+```sh
+ionic generate page [nome-da-pagina]
+ionic generate provider [nome-do-provedor]
+ionic generate component [nome-do-componente]
+```
+
+...
 
 ## Executando no dispositivo - Android ou iOS
 
